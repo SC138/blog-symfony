@@ -1,6 +1,11 @@
 {%  extends 'base.html.twig' %}
 
 
+{% block title %}
+    <title>{{ "Les articles"}}</title>
+{% endblock %}
+
+
 {% block main %}
     {% for article in articles %}
         <article class="full-list">

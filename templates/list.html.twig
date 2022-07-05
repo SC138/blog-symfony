@@ -1,6 +1,11 @@
 {%  extends 'base.html.twig' %}
 
-    {% block main %}
+
+{% block title %}
+    <title>{{"Article"}}</title>
+{% endblock %}
+
+{% block main %}
 
 <article class="list">
     <h2>{{ show_ref. title }}</h2>
@@ -9,6 +14,10 @@
     <img src="{{ show_ref. image }}" alt="">
 </article>
 
+    {% endblock %}
+
+    {% block footer %}
+        <p>Article</p>
     {% endblock %}
 
 
