@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blog</title>
+    <link rel="stylesheet" href="{{ asset ('style.css') }}">
+
+</head>
+
+
+<body>
+<h1><a href="{{ path('home')}}">Accueil</a></h1>
+
+<article class="list">
+    <h2>{{ show_ref. title }}</h2>
+    <p>{{ show_ref. description }}</p>
+    <p>{{ show_ref. author }}</p>
+    <img src="{{ show_ref. image }}" alt="">
+</article>
+
+</body>
+
+<footer></footer>
+</html>
