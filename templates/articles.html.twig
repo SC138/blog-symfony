@@ -1,20 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Blog</title>
-    <link rel="stylesheet" href="{{ asset ('style.css') }}">
-
-</head>
+{%  extends 'base.html.twig' %}
 
 
-<body>
-<h1><a href="{{ path('home')}}">Accueil</a></h1>
-
-
+{% block main %}
     {% for article in articles %}
         <article class="full-list">
                 <h2>{{ article. title }}</h2>
@@ -29,15 +16,7 @@
         </article>
     {% endfor %}
 
-<a href=""></a>
-</body>
-
-<footer></footer>
-</html>
-
-
-
-
+{% endblock main %}
 
 
 
