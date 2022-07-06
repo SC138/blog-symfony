@@ -2,54 +2,91 @@
 
 namespace App\Entity;
 
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-// La classe sera transformer en table grâce à l'ORM
-
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
-
-// Création d'une classe ici nommée "Article" qui sera le nom de la table
-class Article {
-
-    //Je donne les valeurs des colonnes de ma classe
-
+class Article
+{
     /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
      */
-
-    // Je transforme ma proprièté $id en  colonne grace au mapping
-    public $id;
+    private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
-    public $title;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    public $image;
+    private $title;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    public $isPublished;
+    private $isPublished;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
-    public $author;
+    private $author;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $content;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function isIsPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
 }
-
-//Pour créer le fichier de migration
-//"php bin/console make:migration"
-//
-//
-//pour le comparer avec ka bdd et faire les modifications
-//"php bin/console doctrine:migration:migrate"
