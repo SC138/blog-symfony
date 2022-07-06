@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  */
 class Article {
-    
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id()
@@ -16,8 +16,8 @@ class Article {
      */
     public $id;
 
-    /*
-     *
+    /**
+     * @ORM\Column(type="string")
      */
     public $title;
 }
