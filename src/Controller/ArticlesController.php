@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -106,4 +108,29 @@ class ArticlesController extends AbstractController
 
     }
 
+    /**
+     * @Route("insert-article", name="insert_article")
+     */
+    public function insertArticle (EntityManagerInterface $entityManager) {
+
+        //Creation d'une instance de la classe Article (Def: La "Classe Article" est une "Classe Entité)
+        // Qui va servir à créer un nouvel article dans la BDD (Qui correspond à la "Table Article")
+
+        $article = new Article();
+
+        // Utilisation des Setters (Setters = set... EXEMPLE: setTitle. Qui ne sert QUE pour les PRIVATE). Donc, Utilisation des Setters du titre/contenu/Publié/Date etc
+        $article->setTitle("J'aime les titres");
+        $article->setContent("Les descriptions c'est beaucoup trop bien, mais pas autant que les titres");
+        $article->setIsPublished(true);
+        $article->setAuthor("Qu'est ce que ça ?");
+     
+
+        // Avec la classe EntityManagerInterface de Doctrine pour enregister l'entité dans al BDD directement dans la table article.
+        // D'abord avec le "persist" et après avec le "flush"
+        $entityManager->persist($article);
+        $entityManager->flush();
+
+        dump($article); die;
+
+    }
 }
