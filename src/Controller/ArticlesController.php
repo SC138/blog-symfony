@@ -123,7 +123,7 @@ class ArticlesController extends AbstractController
         $article->setContent("Les descriptions c'est beaucoup trop bien, mais pas autant que les titres");
         $article->setIsPublished(true);
         $article->setAuthor("Qu'est ce que ça ?");
-     
+
 
         // Avec la classe EntityManagerInterface de Doctrine pour enregister l'entité dans al BDD directement dans la table article.
         // D'abord avec le "persist" et après avec le "flush"
