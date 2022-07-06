@@ -35,7 +35,7 @@ class Article {
     public $image;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="boolean")
      */
     public $isPublished;
 
