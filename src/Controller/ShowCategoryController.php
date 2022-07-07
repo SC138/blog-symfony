@@ -14,6 +14,14 @@ class ShowCategoryController extends AbstractController
  public function showCategory(CategoryRepository $categoryRepository){
      $category = $categoryRepository->find(1);
 
-     dd($category);
  }
+
+    /**
+     * @Route("/all-category", name="all-category")
+     */
+    public function allCategory(CategoryRepository $categoryRepository){
+        $category = $categoryRepository->findAll();
+
+        dd($category);
+    }
 }
