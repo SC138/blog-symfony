@@ -25,7 +25,9 @@ class ArticlesController extends AbstractController
         // Et la méthode ($xxx) permet de récupérer un élément en lien avec l'id choisi
         $article = $articleRepository->find(1);
 
-        dd($article);
+        return $this -> render('article.html.twig', [
+            "article" => $article
+        ]);
 
     }
 
@@ -33,9 +35,11 @@ class ArticlesController extends AbstractController
      * @Route("/all-article", name="all-article")
      */
     public function allArticle(ArticleRepository $articleRepository){
-        $article = $articleRepository->findAll();
+        $articles = $articleRepository->findAll();
 
-        dd($article);
+        return $this->render('articles.html.twig', [
+            "articles" => $articles
+        ]);
     }
 
 

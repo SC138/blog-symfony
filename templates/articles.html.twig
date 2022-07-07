@@ -10,12 +10,11 @@
     {% for article in articles %}
         <article class="full-list">
                 <h2>{{ article. title }}</h2>
-                <p>{{ article. description }}</p>
                 <p>{{ article. author }}</p>
-                <img src="{{ article. image }}" alt="">
 
             <div class="moove-bouton">
-                <a class="bouton" href="{{ path('article_seul', {'id':article.id}) }}">OUVRE TOI</a>
+            <a class="bouton" href="{{ path('article', {'id':article.id}) }}">OUVRE TOI</a>
+
             </div>
 
         </article>
