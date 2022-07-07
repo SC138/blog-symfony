@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,6 +27,15 @@ class ArticlesController extends AbstractController
 
         dd($article);
 
+    }
+
+    /**
+     * @Route("/all-article", name="all-article")
+     */
+    public function allArticle(ArticleRepository $articleRepository){
+        $article = $articleRepository->findAll();
+
+        dd($article);
     }
 
 
