@@ -69,27 +69,24 @@ class AdminArticlesController extends AbstractController
         $entityManager->persist($article);
         $entityManager->flush();
 
-        dump($article); die;
-
+        return $this ->redirectToRoute('admin_all-article');
     }
 
     /**
      * @Route("/admin/articles/delete/{id}", name="admin_delete_article")
      */
 
-    public function deleteArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager){
+    public function deleteArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
+    {
         $article = $articleRepository->find($id);
 
-        if (!is_null($article)){
+        if (!is_null($article)) {
             $entityManager->remove($article);
             $entityManager->flush();
-
-            return new Response('Supprimé');
-        } else {
-            return new Response('Déjà supprimé');
-
         }
-    }
+        return $this->redirectToRoute('admin_all-article');
+            }
+
 
 
     //Creation d'une nouvelle route pour notifier le UPDATE dans l'URL

@@ -4,5 +4,6 @@
     <article>
         <h2 style="color: {{ category.color }};">{{ category.title }}</h2>
         <p> {{ category.description }}</p>
+        <a href="{{ path('admin_show_category', {'id': category.id}) }}">Supprimer CATEGORIE</a>
     </article>
 {% endblock %}

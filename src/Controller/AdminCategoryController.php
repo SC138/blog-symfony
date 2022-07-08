@@ -7,11 +7,13 @@ use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
-class CategoryController extends AbstractController
+
+class AdminCategoryController extends AbstractController
 {
     /**
-     * @Route("insert-category", name="insert_category")
+     * @Route("/admin/insert-category", name="admin/insert_category")
      */
 
     public function insertCategory (EntityManagerInterface $entityManager){
@@ -50,5 +52,24 @@ class CategoryController extends AbstractController
             'category' => $category
         ]);
 
+    }
+
+    /**
+     * @Route("/admin/show_category/delete/{id}", name="admin_delete_show_category")
+     */
+
+    public function deleteShow_Category($id, CategoryRepository $categoryRepository, EntityManagerInterface  $entityManager){
+        $category=$categoryRepository->find($id);
+
+        // Je dois verifier si article n'est pas "!is_null". si c'est pas '!is_null" je peux lancer le "remove - flush" et sinon "else" je "return new" un message "Déjà supprimé"
+        if (!is_null($category)){
+            $entityManager->remove($category);
+            $entityManager->flush();
+
+            return new Response('CATEGORIE Supprimé');
+        } else {
+            return new Response('CATEGORIE Déjà supprimé');
+
+        }
     }
 }
