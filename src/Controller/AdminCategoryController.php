@@ -62,14 +62,13 @@ class AdminCategoryController extends AbstractController
         $category=$categoryRepository->find($id);
 
         // Je dois verifier si article n'est pas "!is_null". si c'est pas '!is_null" je peux lancer le "remove - flush" et sinon "else" je "return new" un message "Déjà supprimé"
-        if (!is_null($category)){
+        if (!is_null($category)) {
             $entityManager->remove($category);
             $entityManager->flush();
 
-            return new Response('CATEGORIE Supprimé');
-        } else {
-            return new Response('CATEGORIE Déjà supprimé');
+            $this->addFlash('success', 'Vous avez bien supprimé la categorie !');
 
-        }
-    }
-}
+
+        } return $this->redirectToRoute('admin_list_categories');
+
+}}
