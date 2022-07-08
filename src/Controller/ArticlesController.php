@@ -90,4 +90,25 @@ class ArticlesController extends AbstractController
 
         }
     }
+
+
+    //Creation d'une nouvelle route pour notifier le UPDATE dans l'URL
+    /**
+     * @Route("/article/update/{id}", name="update_article")
+     */
+
+//Idem pour la méthode sur laquelle on indique le "updateArticle" et surtout les : $id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager
+    public function updateArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager){
+        $article = $articleRepository->find($id);
+
+//On donne la modification à faire dans la variable
+        $article->setTitle("Nouveau titre");
+
+
+//On valide dans la BDD la modification avec le "persist & flush" sans oublier le "return new Response"
+        $entityManager->persist($article);
+        $entityManager->flush();
+        return new Response('Article modifié');
+
+    }
 }
