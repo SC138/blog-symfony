@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class ArticlesController extends AbstractController
+class AdminArticlesController extends AbstractController
 {
     /**
      * @Route("/admin/article/{id}", name="admin_article")
@@ -26,7 +26,7 @@ class ArticlesController extends AbstractController
         // Et la méthode ($xxx) permet de récupérer un élément en lien avec l'id choisi
         $article = $articleRepository->find($id);
 
-        return $this -> render('article.html.twig', [
+        return $this -> render('admin/article.html.twig', [
             "article" => $article
         ]);
 
@@ -38,7 +38,7 @@ class ArticlesController extends AbstractController
     public function allArticle(ArticleRepository $articleRepository){
         $articles = $articleRepository->findAll();
 
-        return $this->render('articles.html.twig', [
+        return $this->render('admin/articles.html.twig', [
             "articles" => $articles
         ]);
     }

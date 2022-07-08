@@ -28,25 +28,25 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/categories", name="list_categories")
+     * @Route("/admin/categories", name="admin_list_categories")
      */
 
     public function listCategories(CategoryRepository $categoryRepository){
         $categories = $categoryRepository->findAll();
 
-        return $this->render('list_categories.html.twig', [
+        return $this->render('admin/list_categories.html.twig', [
             'categories' => $categories
         ]);
     }
 
 
     /**
-     * @Route("/categories/{id}", name="show_category")
+     * @Route("/admin/categories/{id}", name="admin_show_category")
      */
     public function showCategory($id, CategoryRepository $categoryRepository){
         $category = $categoryRepository->find($id);
 
-        return $this->render('show_category.html.twig', [
+        return $this->render('admin/show_category.html.twig', [
             'category' => $category
         ]);
 
