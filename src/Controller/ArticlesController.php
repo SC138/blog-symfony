@@ -13,9 +13,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ArticlesController extends AbstractController
 {
     /**
-     * @Route("/article", name="article")
+     * @Route("/admin/article/{id}", name="admin_article")
      */
-    public function showArticle(ArticleRepository $articleRepository){
+    public function showArticle($id, ArticleRepository $articleRepository){
 
         // A partir de la BDD on peut récupérer un article par rapport à L'ID
         // Ce qui donne SELECT * FROM article where id = xxx
@@ -24,7 +24,7 @@ class ArticlesController extends AbstractController
         //Donc, la classe Repository nous permet de faire des requêtes SELECT
         // dans la "table" associée
         // Et la méthode ($xxx) permet de récupérer un élément en lien avec l'id choisi
-        $article = $articleRepository->find(1);
+        $article = $articleRepository->find($id);
 
         return $this -> render('article.html.twig', [
             "article" => $article
@@ -33,7 +33,7 @@ class ArticlesController extends AbstractController
     }
 
     /**
-     * @Route("/all-article", name="all-article")
+     * @Route("/admin/all-article", name="admin_all-article")
      */
     public function allArticle(ArticleRepository $articleRepository){
         $articles = $articleRepository->findAll();
@@ -48,7 +48,7 @@ class ArticlesController extends AbstractController
 
 
     /**
-     * @Route("insert-article", name="insert_article")
+     * @Route("/admin/insert-article", name="admin_insert_article")
      */
     public function insertArticle (EntityManagerInterface $entityManager) {
 
@@ -74,7 +74,7 @@ class ArticlesController extends AbstractController
     }
 
     /**
-     * @Route("/articles/delete/{id}", name="delete_article")
+     * @Route("/admin/articles/delete/{id}", name="admin_delete_article")
      */
 
     public function deleteArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager){
@@ -94,7 +94,7 @@ class ArticlesController extends AbstractController
 
     //Creation d'une nouvelle route pour notifier le UPDATE dans l'URL
     /**
-     * @Route("/article/update/{id}", name="update_article")
+     * @Route("/admin/article/update/{id}", name="admin_update_article")
      */
 
 //Idem pour la méthode sur laquelle on indique le "updateArticle" et surtout les : $id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager
