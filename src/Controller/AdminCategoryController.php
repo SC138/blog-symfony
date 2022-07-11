@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Form\CategoryType;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,49 +20,61 @@ class AdminCategoryController extends AbstractController
      */
 
     // J'ajoute la classe Request et la classe EntityManager dans la méthode pour demander à symfony de les instancier, pour récuperer plus bas
-    public function insertCategory (EntityManagerInterface $entityManager, Request $request)
+    public function insertCategory (EntityManagerInterface $entityManager)
     {
+        $category = new Category();
 
-        // Le code ne s'éxécute pas grâce au if, ce qui me permet de remplir le formulaire la première fois que la page est chargée
-        // si le formulaire est rempli, alors la condition sera vraie
-        // donc le code dans le if s'executera
-        if ($request->query->has('name_category')) {
+        // le formulaire est créé et relié au twig ET Type.php et PAF MAGIE
+        $form = $this->createForm(CategoryType::class, $category);
 
-            // Les request permettent de faire le lien avec les inputs du twig (le nom des "key" y est associé) ce qui permet
-            // de créer les catégories avce le contenu que l'on veut et non une catégorie avec du code en "dur"
-            $name_category = $request->query->get('name_category');
-            $user_color_cat = $request->query->get('user_color_cat');
-            $user_content = $request->query->get('user_content');
-
-
-            // je créé une instance de la classe Category
-            // Category c'est une entité, donc quand je créé une instance, c'est pour créer un enregistrement
-            $category= new Category();
-
-            // je défini avec les setters, les valeurs de l'enregistrement
-            // ici, j'utilise les valeurs du formulaire pour créer l'enregistrement
-            $category->setTitle($name_category);
-            $category->setColor($user_color_cat);
-            $category->setDescription($user_content);
-            $category->setIsPublished(true);
+        return $this->render("insert_category.html.twig", [
+            "form"=>$form->createView()
+        ]);
 
 
 
-            //        $category = new Category();
-            //
-            //        $category->setColor("red");
-            //        $category->setDescription("Ma tête va exploser");
-            //        $category->setTitle("ALED");
-            //        $category->setIsPublished(true);
 
-            // La catégorie se créer et va dans la BDD
-            $entityManager->persist($category);
-            $entityManager->flush();
 
-        }
-
-        // le formulaire s'affiche correctement, je peux le remplir
-       return $this ->render('admin/insert_category.html.twig' );
+        //    // Le code ne s'éxécute pas grâce au if, ce qui me permet de remplir le formulaire la première fois que la page est chargée
+        //        // si le formulaire est rempli, alors la condition sera vraie
+        //        // donc le code dans le if s'executera
+        //        if ($request->query->has('name_category')) {
+        //
+        //            // Les request permettent de faire le lien avec les inputs du twig (le nom des "key" y est associé) ce qui permet
+        //            // de créer les catégories avce le contenu que l'on veut et non une catégorie avec du code en "dur"
+        //            $name_category = $request->query->get('name_category');
+        //            $user_color_cat = $request->query->get('user_color_cat');
+        //            $user_content = $request->query->get('user_content');
+        //
+        //
+        //            // je créé une instance de la classe Category
+        //            // Category c'est une entité, donc quand je créé une instance, c'est pour créer un enregistrement
+        //            $category= new Category();
+        //
+        //            // je défini avec les setters, les valeurs de l'enregistrement
+        //            // ici, j'utilise les valeurs du formulaire pour créer l'enregistrement
+        //            $category->setTitle($name_category);
+        //            $category->setColor($user_color_cat);
+        //            $category->setDescription($user_content);
+        //            $category->setIsPublished(true);
+        //
+        //
+        //
+        //            //        $category = new Category();
+        //            //
+        //            //        $category->setColor("red");
+        //            //        $category->setDescription("Ma tête va exploser");
+        //            //        $category->setTitle("ALED");
+        //            //        $category->setIsPublished(true);
+        //
+        //            // La catégorie se créer et va dans la BDD
+        //            $entityManager->persist($category);
+        //            $entityManager->flush();
+        //
+        //        }
+        //
+        //        // le formulaire s'affiche correctement, je peux le remplir
+        //       return $this ->render('admin/insert_category.html.twig' );
 
     }
 

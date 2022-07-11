@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -52,26 +53,42 @@ class AdminArticlesController extends AbstractController
      */
     public function insertArticle (EntityManagerInterface $entityManager) {
 
-        //Creation d'une instance de la classe Article (Def: La "Classe Article" est une "Classe Entité")
-        // Qui va servir à créer un nouvel article dans la BDD (Qui correspond à la "Table Article")
-
         $article = new Article();
 
-        // Utilisation des Setters (Setters = set... EXEMPLE: setTitle. Qui ne sert QUE pour les PRIVATE). Donc, Utilisation des Setters du titre/contenu/Publié/Date etc
-        $article->setTitle("J'aime les titres");
-        $article->setContent("Les descriptions c'est beaucoup trop bien, mais pas autant que les titres");
-        $article->setIsPublished(true);
-        $article->setAuthor("Qu'est ce que ça ?");
+        $form = $this->createForm(ArticleType::class, $article);
+
+        return $this->render("admin/insert_article.html.twig", [
+            "form"=>$form->createView()
+        ]);
 
 
-        // Avec la classe EntityManagerInterface de Doctrine pour enregister l'entité dans al BDD directement dans la table article.
-        // D'abord avec le "persist" et après avec le "flush"
-        $entityManager->persist($article);
-        $entityManager->flush();
 
-        $this->addFlash('success', 'Vous avez bien créé l\'article !');
 
-        return $this ->redirectToRoute('admin_all-article');
+
+
+
+
+
+//        //Creation d'une instance de la classe Article (Def: La "Classe Article" est une "Classe Entité")
+//        // Qui va servir à créer un nouvel article dans la BDD (Qui correspond à la "Table Article")
+//
+//        $article = new Article();
+//
+//        // Utilisation des Setters (Setters = set... EXEMPLE: setTitle. Qui ne sert QUE pour les PRIVATE). Donc, Utilisation des Setters du titre/contenu/Publié/Date etc
+//        $article->setTitle("J'aime les titres");
+//        $article->setContent("Les descriptions c'est beaucoup trop bien, mais pas autant que les titres");
+//        $article->setIsPublished(true);
+//        $article->setAuthor("Qu'est ce que ça ?");
+//
+//
+//        // Avec la classe EntityManagerInterface de Doctrine pour enregister l'entité dans al BDD directement dans la table article.
+//        // D'abord avec le "persist" et après avec le "flush"
+//        $entityManager->persist($article);
+//        $entityManager->flush();
+//
+//        $this->addFlash('success', 'Vous avez bien créé l\'article !');
+//
+//        return $this ->redirectToRoute('admin_all-article');
     }
 
     /**

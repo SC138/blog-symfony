@@ -2,6 +2,9 @@
 
 
 {% block main %}
+
+    {{ form(form) }}
+
     <form method="get" action="{{ path('admin_insert_category') }}" >
         <h1>Nouvelle catégorie</h1>
         <div>
