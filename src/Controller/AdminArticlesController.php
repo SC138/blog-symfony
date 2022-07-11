@@ -52,7 +52,7 @@ class AdminArticlesController extends AbstractController
      */
     public function insertArticle (EntityManagerInterface $entityManager) {
 
-        //Creation d'une instance de la classe Article (Def: La "Classe Article" est une "Classe Entité)
+        //Creation d'une instance de la classe Article (Def: La "Classe Article" est une "Classe Entité")
         // Qui va servir à créer un nouvel article dans la BDD (Qui correspond à la "Table Article")
 
         $article = new Article();
@@ -112,4 +112,5 @@ class AdminArticlesController extends AbstractController
         return new Response('Article modifié');
 
     }
+
 }

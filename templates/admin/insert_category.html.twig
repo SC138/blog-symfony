@@ -1,0 +1,29 @@
+{%  extends 'base.html.twig' %}
+
+
+{% block main %}
+    <form method="get" action="{{ path('admin_insert_category') }}" >
+        <h1>Nouvelle catégorie</h1>
+        <div>
+            <label for="name">Nom de la catégorie:</label>
+            <input type="text" id="name_cat" name="name_category">
+        </div>
+        <div>
+            <label for="author">Couleur de la catégorie:</label>
+            <input type="color" id="color_cat" name="user_color_cat">
+        </div>
+        <div>
+            <label for="text">Contenu:</label>
+            <textarea id="content_cat" name="user_content"></textarea>
+        </div>
+
+        <input type="submit">Submit</input>
+
+    </form>
+
+
+{% endblock %}
+
+{% block footer %}
+    <p>Accueil</p>
+{% endblock %}

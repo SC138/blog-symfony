@@ -8,25 +8,53 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+
 
 
 class AdminCategoryController extends AbstractController
 {
+    //Création de la Route en rapport avec le twig
     /**
-     * @Route("/admin/insert-category", name="admin/insert_category")
+     * @Route("/admin/insert-category", name="admin_insert_category")
      */
 
-    public function insertCategory (EntityManagerInterface $entityManager){
+    // J'ajoute le Request dans la méthode pour le récuperer plus bas
+    public function insertCategory (EntityManagerInterface $entityManager, Request $request)
+    {
 
-        $category = new Category();
 
-        $category->setColor("red");
-        $category->setDescription("Ma tête va exploser");
-        $category->setTitle("ALED");
-        $category->setIsPublished(true);
+        if ($request->query->has('name_category')) {
 
-        $entityManager->persist($category);
-        $entityManager->flush();
+            // Le code ne s'éxécute pas grâce au if, ce qui me permet de remplir le formulaire
+            $name_category = $request->query->get('name_category');
+            $user_color_cat = $request->query->get('user_color_cat');
+            $user_content = $request->query->get('user_content');
+// Les request permettent de faire le lien avec le twig (le nom des "key" y est associé) ce qui permet de créer les catégories que l'on veut et non une catégorie avec du code en "dur"
+            $category= new Category();
+
+            $category->setTitle($name_category);
+            $category->setColor($user_color_cat);
+            $category->setDescription($user_content);
+            $category->setIsPublished(true);
+// Code exécuté, le formulaire s'affiche correctement avec le Setter (ex: setTitle), je peux le remplir
+
+
+//        $category = new Category();
+//
+//        $category->setColor("red");
+//        $category->setDescription("Ma tête va exploser");
+//        $category->setTitle("ALED");
+//        $category->setIsPublished(true);
+
+            // La catégorie se créer et va dans la BDD
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+        }
+
+       return $this ->render('admin/insert_category.html.twig' );
+
     }
 
     /**
@@ -71,4 +99,6 @@ class AdminCategoryController extends AbstractController
 
         } return $this->redirectToRoute('admin_list_categories');
 
-}}
+}
+
+}
