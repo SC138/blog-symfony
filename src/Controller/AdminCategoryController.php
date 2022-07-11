@@ -20,19 +20,27 @@ class AdminCategoryController extends AbstractController
      */
 
     // J'ajoute la classe Request et la classe EntityManager dans la méthode pour demander à symfony de les instancier, pour récuperer plus bas
-    public function insertCategory (EntityManagerInterface $entityManager)
+    public function insertCategory (EntityManagerInterface $entityManager, Request $request)
     {
         $category = new Category();
 
         // le formulaire est créé et relié au twig ET Type.php et PAF MAGIE
         $form = $this->createForm(CategoryType::class, $category);
 
-        return $this->render("insert_category.html.twig", [
-            "form"=>$form->createView()
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //alors on eneregistre l'article en BDD
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Category enregistré !');
+
+        }
+
+        return $this->render("admin/insert_category.html.twig", [
+            "form" => $form->createView()
         ]);
-
-
-
 
 
         //    // Le code ne s'éxécute pas grâce au if, ce qui me permet de remplir le formulaire la première fois que la page est chargée
@@ -116,10 +124,10 @@ class AdminCategoryController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Vous avez bien supprimé la categorie !');
+        }
 
+        return $this->redirectToRoute('admin_list_categories');
 
-        } return $this->redirectToRoute('admin_list_categories');
-
-}
+    }
 
 }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use Symfony\Component\HttpFoundation\Request;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,11 +52,24 @@ class AdminArticlesController extends AbstractController
     /**
      * @Route("/admin/insert-article", name="admin_insert_article")
      */
-    public function insertArticle (EntityManagerInterface $entityManager) {
+    public function insertArticle (EntityManagerInterface $entityManager, Request $request ) {
 
         $article = new Article();
 
         $form = $this->createForm(ArticleType::class, $article);
+
+        $form->handleRequest($request);
+        // Si le formulaire a été posté et que les données sont validées (valeurs)
+        // des inputs correspondent à ce qui est attebdu en BDD pour la table article
+        if($form->isSubmitted() && $form->isValid()){
+            //alors on eneregistre l'article en BDD
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Article enregistré !');
+        }
+
+
 
         return $this->render("admin/insert_article.html.twig", [
             "form"=>$form->createView()
@@ -116,18 +130,26 @@ class AdminArticlesController extends AbstractController
      */
 
 //Idem pour la méthode sur laquelle on indique le "updateArticle" et surtout les : $id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager
-    public function updateArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager){
+    public function updateArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager, Request $request){
         $article = $articleRepository->find($id);
+        $form = $this->createForm(ArticleType::class, $article);
 
-//On donne la modification à faire dans la variable
-        $article->setTitle("Nouveau titre");
+        $form->handleRequest($request);
+        // Si le formulaire a été posté et que les données sont validées (valeurs)
+        // des inputs correspondent à ce qui est attebdu en BDD pour la table article
+        if($form->isSubmitted() && $form->isValid()){
+            //alors on eneregistre l'article en BDD
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Article enregistré !');
+        }
 
 
-//On valide dans la BDD la modification avec le "persist & flush" sans oublier le "return new Response"
-        $entityManager->persist($article);
-        $entityManager->flush();
-        return new Response('Article modifié');
 
+        return $this->render("admin/update_article.html.twig", [
+            "form"=>$form->createView()
+        ]);
     }
 
 }
