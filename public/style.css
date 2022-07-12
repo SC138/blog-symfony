@@ -81,6 +81,7 @@ img {
 
 .nav-item{
     border: solid 5px hotpink;
+    background-color: lightpink;
     font-size: 50px;
     width: 30%;
     display: block;

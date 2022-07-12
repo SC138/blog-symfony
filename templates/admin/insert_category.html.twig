@@ -3,8 +3,30 @@
 
 {% block main %}
 
-    {{ form(form) }}
+    {{ form_start(form) }}
 
+
+    {{ form_label(form.title, 'title', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+
+    {{ form_label(form.color, 'color', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.color, {'attr': {'class': 'form-control'}}) }}
+
+    {{ form_label(form.description, 'description', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+
+
+
+    {{ form_label(form.isPublished, 'isPublished ?', {'label_attr': {'class': 'form-check-label'}}) }}
+    {{ form_widget(form.isPublished, {'attr': {'class': 'form-check-label'}}) }}
+    <br>
+    <br>
+
+    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+
+
+
+    {{ form_end(form) }}
     {# <form method="get" action="{{ path('admin_insert_category') }}" >
         <h1>Nouvelle catégorie</h1>
         <div>
