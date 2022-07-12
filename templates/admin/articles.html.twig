@@ -8,19 +8,26 @@
 
 {% block main %}
     {% for article in articles %}
-        <article class="full-list">
-                <h2>{{ article. title }}</h2>
-                <p>{{ article. author }}</p>
-
-            <div class="moove-bouton">
-            <a class="bouton" href="{{ path('admin_article', {'id':article.id}) }}">OUVRE TOI</a>
-                <a href="{{ path('admin_insert_article')}}">Créer article</a>
-                <a href="{{ path('admin_delete_article', {'id':article.id})  }}">Suprimmer un article</a>
-                <a href="{{ path('admin_update_article', {'id': article.id }) }}">Modifier cet article</a>
+        {% if article.isPublished %}
+            <article class="full-list">
+                {# Avec le if je vérifie si l'article a une catégorie, si c'est le cas, je peux l'afficher #}
+                {% if article.category %}
+                    <h2>{{ article.category.title }}</h2>
+                    <p>{{ article. author }}</p>
+                    {# Si ce n'est pas le cas, je demande à afficher la balise <p>   #}
+            {% else %}
+                <p>Pas de catgéorie</p>
+            {% endif %}
+                <div class="moove-bouton">
+                <a class="bouton" href="{{ path('admin_article', {'id':article.id}) }}">OUVRE TOI</a>
+                    <a href="{{ path('admin_insert_article')}}">Créer article</a>
+                    <a href="{{ path('admin_delete_article', {'id':article.id})  }}">Suprimmer un article</a>
+                    <a href="{{ path('admin_update_article', {'id': article.id }) }}">Modifier cet article</a>
 
             </div>
 
         </article>
+        {% endif %}
     {% endfor %}
 
 {% endblock main %}
