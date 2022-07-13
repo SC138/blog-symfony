@@ -18,6 +18,11 @@
 <body>
 
 <header class="header-top">
+    <form method="GET" action="{{ path('admin_search_articles') }}">
+        <input type="text" name="search">
+        <input type="submit">
+    </form>
+
     <ul class="nav-items">
         <li class="nav-item"><a class="nav-link" href="{{ path('home') }}">Accueil</a></li>
 {#        <li class="nav-item"><a class="nav-link" href="{{ path('articles') }}">Articles</a></li>

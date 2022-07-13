@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -85,6 +86,14 @@ class Category
         $this->color = $color;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Article>
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
     }
 
     public function getDescription(): ?string
