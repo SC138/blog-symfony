@@ -41,7 +41,7 @@ class Article
      * @ORM\ManyToOne(targetEntity="App\Entity\Category",inversedBy="articles")
      */
     private $category;
-
+//Permet de créer un lien entre php et la BDD: creation de "categorie_id" dans la table article, c'est à dire: une clé étrangère
     public function getId(): ?int
     {
         return $this->id;

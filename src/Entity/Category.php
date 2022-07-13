@@ -37,8 +37,10 @@ class Category
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category")
      */
+    //je fait le lien entre les  entites "categorie" et "article"
+    // je demande de recupérer les articles existants liés a une categorie
     private $articles;
-
+//Le __construct permet d'afficher tous les articles trouvés
     public function __construct()
     {
         $this->articles = new ArrayCollection();
