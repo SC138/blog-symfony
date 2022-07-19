@@ -7,6 +7,47 @@
     mon formulaire depuis le controleur
     ça permet de générer tous les inputs + labels de mon formulaire
     #}
-    {{ form(form) }}
+    {{ form_start(form) }}
+
+
+    {{ form_label(form.title, 'title', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.title) }}
+
+
+    {{ form_label(form.author, 'author', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.author) }}
+
+
+    {{ form_label(form.content, 'content', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.content) }}
+
+    {{ form_label(form.category, 'category', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.category) }}
+
+    {{ form_label(form.isPublished, 'isPublished ?', {'label_attr': {'class': 'form-check-label'}}) }}
+    {{ form_widget(form.isPublished, {'attr': {'class': 'form-check-label'}}) }}
+
+    <div>
+        {% if article.image %}
+            <img class="art-img" src="{{ asset('uploads/images/' ~ article.image)  }}" alt="{{ article.title }}">
+        {% endif %}
+    </div>
+    {{ form_label(form.image) }}
+    {{ form_widget(form.image) }}
+    {{ form_errors(form.image) }}
+
+    <br>
+    <br>
+
+    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+
+
+
+    {{ form_end(form) }}
+
 
 {% endblock %}

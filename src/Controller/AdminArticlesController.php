@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminArticlesController extends AbstractController
 {
@@ -52,7 +53,7 @@ class AdminArticlesController extends AbstractController
     /**
      * @Route("/admin/insert-article", name="admin_insert_article")
      */
-    public function insertArticle (EntityManagerInterface $entityManager, Request $request ) {
+    public function insertArticle (EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger) {
 
         $article = new Article();
 
@@ -62,6 +63,23 @@ class AdminArticlesController extends AbstractController
         // Si le formulaire a été posté et que les données sont validées (valeurs)
         // des inputs correspondent à ce qui est attebdu en BDD pour la table article
         if($form->isSubmitted() && $form->isValid()){
+            $image = $form->get('image')->getData();
+
+            //j'utilise une instance de la classe Slugger et sa méthode slug pour
+            // supprimer les caractères spéciaux, espaces etc du nom du fichier
+            $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            // this is needed to safely include the file name as part of the URL
+            $safeFilename = $slugger->slug($originalFilename);
+            // je rajoute au nom de l'image, un identifiant unique (au cas où l'image soit uploadée plusieurs fois
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$image->guessExtension();
+
+            $image->move(
+                $this->getParameter('images_directory'),
+                $newFilename
+            );
+
+            $article->setImage($newFilename);
+
             //alors on eneregistre l'article en BDD
             $entityManager->persist($article);
             $entityManager->flush();
@@ -130,7 +148,7 @@ class AdminArticlesController extends AbstractController
      */
 
 //Idem pour la méthode sur laquelle on indique le "updateArticle" et surtout les : $id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager
-    public function updateArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager, Request $request){
+    public function updateArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger){
         $article = $articleRepository->find($id);
         $form = $this->createForm(ArticleType::class, $article);
 
@@ -138,6 +156,28 @@ class AdminArticlesController extends AbstractController
         // Si le formulaire a été posté et que les données sont validées (valeurs)
         // des inputs correspondent à ce qui est attebdu en BDD pour la table article
         if($form->isSubmitted() && $form->isValid()){
+
+            // je récupère l'image dans le formulaire (l'image est en mapped false donc c'est à moi
+            // de gérer l'upload
+            $image = $form->get('image')->getData();
+
+            // je récupère le nom du fichier original
+            $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+
+            // j'utilise une instance de la classe Slugger et sa méthode slug pour
+            // supprimer les caractères spéciaux, espaces etc du nom du fichier
+            $safeFilename = $slugger->slug($originalFilename);
+            // je rajoute au nom de l'image, un identifiant unique (au cas ou
+            // l'image soit uploadée plusieurs fois)
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$image->guessExtension();
+
+            // je déplace l'image dans le dossier public et je la renomme avec le nouveau nom créé
+            $image->move(
+                $this->getParameter('images_directory'),
+                $newFilename
+            );
+            $article->setImage($newFilename);
+
             //alors on eneregistre l'article en BDD
             $entityManager->persist($article);
             $entityManager->flush();
@@ -148,7 +188,8 @@ class AdminArticlesController extends AbstractController
 
 
         return $this->render("admin/update_article.html.twig", [
-            "form"=>$form->createView()
+            "form"=>$form->createView(),
+            'article' => $article
         ]);
     }
 

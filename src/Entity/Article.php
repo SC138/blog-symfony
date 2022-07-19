@@ -35,16 +35,35 @@ class Article
 
     /**
      * @ORM\Column(type="boolean")
-     *
      */
     private $isPublished;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $image;
 
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $author;
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image): void
+    {
+        $this->image = $image;
+    }
 
     /**
      * @ORM\Column(type="text")

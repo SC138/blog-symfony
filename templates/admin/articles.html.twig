@@ -10,6 +10,7 @@
     {% for article in articles %}
         {% if article.isPublished %}
             <article class="full-list">
+                <img class="art-img" src="{{ asset('uploads/images/' ~ article.image) }}" alt="">
                 {# Avec le if je vérifie si l'article a une catégorie, si c'est le cas, je peux l'afficher #}
                 {% if article.category %}
                     <h2>{{ article.category.title }}</h2>
