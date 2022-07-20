@@ -1,6 +1,11 @@
 $primary-color: #1ae310;
 $secondary-color: #f69a24;
 
+@mixin border{
+    border: aqua solid 5px;
+}
+
+
 * {
     margin: 0;
     padding: 0;
@@ -13,9 +18,11 @@ body {
 }
 
 h1 {
+    @include border;
     text-align: center;
     padding-bottom: 3%;
     font-size: 72px;
+
 }
 
 h2 {
@@ -26,6 +33,8 @@ p {
     text-align: center;
     margin: 2vh;
     color: $primary-color;
+    @include border;
+
 }
 
 img {

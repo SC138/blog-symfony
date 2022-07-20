@@ -9,6 +9,7 @@ body {
 }
 
 h1 {
+  border: aqua solid 5px;
   text-align: center;
   padding-bottom: 3%;
   font-size: 72px;
@@ -22,6 +23,7 @@ p {
   text-align: center;
   margin: 2vh;
   color: #1ae310;
+  border: aqua solid 5px;
 }
 
 img {
