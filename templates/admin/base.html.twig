@@ -18,18 +18,18 @@
 <body>
 
 <header class="header-top">
-    <form method="GET" action="{{ path('admin_search_articles') }}">
-        <input type="text" name="search">
-        <input type="submit">
-    </form>
+    <nav>
+        <ul class="ul-articles">
+            <li class="lien-articles"><a href="{{ path('admin_all-article')}}">Liste des articles</a></li>
+            <li class="lien-articles"><a href="{{ path('admin_list_categories')}}">Liste des categories</a></li>
+            <li class="lien-articles"><a href="{{ path('admin_insert_category')}}">Créer des categories</a></li>
+            <li class="lien-articles"><a href="{{ path('admin_insert_article')}}">Créer des articles</a></li>
 
-    <ul class="nav-items">
-        <li class="nav-item"><a class="nav-link" href="{{ path('home') }}">Accueil</a></li>
-        <li class="lien-articles"><a href="{{ path('all-article')}}">Liste des articles</a></li>
-        <li class="lien-articles"><a href="{{ path('list_categories')}}">Liste des categories</a></li>
-{#        <li class="nav-item"><a class="nav-link" href="{{ path('articles') }}">Articles</a></li>
-#}
-    </ul>
+            <li class="lien-articles"><a href="{{ path('app_logout') }}">Logout</a></li>
+
+        </ul>
+    </nav>
+    <p>Bonjour {{ app.user.email }}</p>
 </header>
 
 {% for message in app.flashes('success') %}
@@ -51,3 +51,5 @@
 
 </body>
 </html>
+
+

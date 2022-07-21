@@ -1,4 +1,4 @@
-{%  extends 'admin/base.html.twig' %}
+{%  extends 'base.html.twig' %}
 
 
 {% block title %}
@@ -16,25 +16,17 @@
                     <h2>{{ article.category.title }}</h2>
                     <p>{{ article. author }}</p>
                     {# Si ce n'est pas le cas, je demande à afficher la balise <p>   #}
-            {% else %}
-                <p>Pas de catgéorie</p>
-            {% endif %}
+                {% else %}
+                    <p>Pas de catgéorie</p>
+                {% endif %}
                 <div class="moove-bouton">
-                <a class="bouton" href="{{ path('admin_article', {'id':article.id}) }}">OUVRE TOI</a>
-                    <a href="{{ path('admin_insert_article')}}">Créer article</a>
-                    <a href="{{ path('admin_delete_article', {'id':article.id})  }}">Suprimmer un article</a>
-                    <a href="{{ path('admin_update_article', {'id': article.id }) }}">Modifier cet article</a>
+                    <a class="bouton" href="{{ path('article', {'id':article.id}) }}">OUVRE TOI</a>
 
-            </div>
 
-        </article>
+                </div>
+
+            </article>
         {% endif %}
     {% endfor %}
 
 {% endblock main %}
-
-
-
-
-
-

@@ -1,5 +1,5 @@
 
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 
 {% block main %}
@@ -16,15 +16,15 @@
 
 
 
-{% for article in articles %}
-<article class="accueil">
+    {% for article in articles %}
+        <article class="accueil">
 
 
-        <h2>{{ article. title }}</h2>
-        <p>{{ article. author }}</p>
+            <h2>{{ article. title }}</h2>
+            <p>{{ article. author }}</p>
 
-</article>
-{% endfor %}
+        </article>
+    {% endfor %}
 
 {% endblock %}
     {% block footer %}
