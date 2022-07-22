@@ -19,4 +19,12 @@ nightBtn.addEventListener('click', function (){
 
 });
 
+const burger = document.querySelector(".burger");
+const ularticles = document.querySelector(".ul-articles");
+
+burger.addEventListener("click", () => {
+    burger.classList.toggle("active");
+    ularticles.classList.toggle("active");
+});
+
 

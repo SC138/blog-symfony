@@ -92,7 +92,10 @@ img {
     display: flex;
     list-style: none;
     color: $primary-color;
+}
 
+.ul-articles.active{
+    left: 0;
 }
 
 .lien-articles{
@@ -119,6 +122,21 @@ img {
     padding: 5px;
 }
 
+.burger{
+    display: none;
+    cursor: pointer;
+}
+
+.bar{
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
+}
+
 .night-activated  {
     background-color: #3f3f3f;
 }
@@ -135,4 +153,28 @@ img {
 .night-activated .js-night{
     background-color: #3f3f3f;
     color: #f3f3f3;
+}
+
+@media (max-width: 640px) {
+    .ul-articles li {
+        display: none;
+    }
+
+    .ul-articles.active li {
+        display: block;
+    }
+    .burger{
+        display: block;
+    }
+
+    .burger.active .bar:nth-child(2){
+        opacity: 0;
+    }
+
+    .burger.active .bar:nth-child(1){
+        transform: translateY(8px) rotate(45deg);
+    }
+    .burger.active .bar:nth-child(3){
+        transform: translateY(-8px) rotate(-45deg);
+    }
 }
