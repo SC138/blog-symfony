@@ -14,8 +14,12 @@
 
 
     <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
+
+
+
+
 </head>
-<body>
+<body class="js-body">
 
 <header class="header-top">
     <nav>
@@ -27,11 +31,12 @@
 
             <li class="lien-articles"><a href="{{ path('app_logout') }}">Logout</a></li>
 
+            <button class="js-night">Mode Sombre</button>
+
         </ul>
     </nav>
     <p>Bonjour {{ app.user.email }}</p>
 </header>
-
 {% for message in app.flashes('success') %}
     <p class="message-success">{{ message }}</p>
 {% endfor %}
@@ -48,6 +53,9 @@
         <p>Les articles</p>
     {% endblock %}
 </footer>
+
+<script src="{{ asset('js/main.js') }}"></script>
+
 
 </body>
 </html>

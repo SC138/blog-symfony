@@ -15,7 +15,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
 </head>
-<body>
+<body class="js-body">
 
 <header class="header-top">
     <form method="GET" action="{{ path('admin_search_articles') }}">
@@ -31,23 +31,26 @@
 #}
     </ul>
 </header>
+<div class="js-body">
+    {% for message in app.flashes('success') %}
+        <p class="message-success">{{ message }}</p>
+    {% endfor %}
 
-{% for message in app.flashes('success') %}
-    <p class="message-success">{{ message }}</p>
-{% endfor %}
+    <main>
 
-<main>
+        {% block main %}
+        {% endblock main %}
 
-    {% block main %}
-    {% endblock main %}
+    </main>
 
-</main>
 
-<footer>
-    {% block footer %}
-        <p>Les articles</p>
-    {% endblock %}
-</footer>
 
+
+    <footer>
+        {% block footer %}
+            <p>Les articles</p>
+        {% endblock %}
+    </footer>
+</div>
 </body>
 </html>
